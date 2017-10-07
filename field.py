@@ -24,7 +24,7 @@ class Field(object):
 				row += self.matrix[y][x]
 			print(row)
 
-class obj(object):
+class Obj(object):
 	""" 
 	object in the field.
 
