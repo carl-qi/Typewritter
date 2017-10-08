@@ -3,30 +3,29 @@ from database.database import data
 from field import Obj
 
 SPACE = '                        '
+#SPACE = '------------------------'
 class Word(Obj):
-    def __init__(self, field, value=None):
-        self.speed = randint(1, 2)
-        if value:
-            self.value = value
-        else:
-            self.value = data[randint(0, len(data)-1)]
-        super().__init__(field, [0, randint(0, field.x_length)-1])
-        self.field.matrix[self.x_location()][self.y_location()] = self
+    def __init__(self, field):
+        self.speed = randint(1, 3)
+        temp = data[randint(0, len(data)-1)]
+        self.value = temp + (' ' * (24 - len(temp)))
+        super().__init__(field, [0, randint(0, field.col_length)-1])
+        self.field.matrix[self.row()][self.col()] = self
 
-    def move(self, x, y):
-        if self.field.matrix[x][y] == None:
+    def move(self, row, col):
+        if self.field.matrix[row][col] == None:
             self.field.matrix[self.previous_location[0]][self.previous_location[1]] = None
-            self.previous_location = [x, y]
-            self.location = [x, y]
+            self.previous_location = [row, col]
+            self.location = [row, col]
             spaces = ''
             for _ in range(0, 24 - len(self.value)):
-                spaces += ' '
-            self.field.matrix[x][y] = Word(self.field, self.value + spaces)
-        elif self.speed > self.field.matrix[x][y].speed:
-            self.move(x+1, y)
+                spaces += '-'
+            self.field.matrix[row][col] = self
+        elif self.speed > self.field.matrix[row][col].speed:
+            self.move(row+1, col)
         else:
-            self.field.matrix[x][y].move(x+1, y)
+            self.field.matrix[row][col].move(row+1, col)
 
     def remove(self):
-        self.field.matrix[self.x_location()][self.y_location()] = SPACE
+        self.field.matrix[self.row()][self.col()] = SPACE
 
