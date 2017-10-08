@@ -6,7 +6,7 @@ SPACE = '                        '
 #SPACE = '------------------------'
 class Word(Obj):
     def __init__(self, field):
-        self.speed = randint(1, 3)
+        self.speed = randint(1, 100)
         temp = data[randint(0, len(data)-1)]
         self.value = temp + (' ' * (24 - len(temp)))
         super().__init__(field, [0, randint(0, field.col_length)-1])
