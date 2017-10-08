@@ -6,6 +6,7 @@ import time
 class App:
     def __init__(self):
         self.words = []
+        self.stage = 1
         self.score = 0
         self.game_over = False
         self.sleep_time = 1
@@ -18,6 +19,7 @@ class App:
             os.system('clear')
             self.field.show_field()
             print('_' * 120)
+            print('Stage {0}'.format(self.stage))
             print('Your score is: {0}'.format(self.score))
             print('Type \'quit\' to QUIT.')
 
@@ -55,6 +57,6 @@ class App:
                 self.field.matrix[w.row()][w.col()] = None
                 self.score += 1
 
-                if self.score % 3:
+                if self.score % 3 == 0:
+                    self.stage += 1
                     self.sleep_time -= 0.1
-
