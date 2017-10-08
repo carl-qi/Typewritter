@@ -28,9 +28,7 @@ class App:
                 word = Word(self.field)
                 words.append(word)
             num_loops += 1
-            
-            words = sorted(words, key=wor)
-            
+                        
             for w in words:
                 if w.speed == (num_loops * SLEEP_TIME) % 3 + 1:
                     if (w.x_location() + w.speed) > (self.field.x_length - 1):

@@ -1,5 +1,7 @@
 import os
 
+SPACE = '                        '
+
 class Field(object):
 	"""
 	Represent field
@@ -14,13 +16,16 @@ class Field(object):
 		""" decide the x and y coordination."""
 		self.x_length = x
 		self.y_length = y
-		self.matrix = [['                        ' for _ in range(x)] for _ in range(y)] # longest length
+		self.matrix = [[None for _ in range(x)] for _ in range(y)] 
 	
 	def show_field(self):
 		for y in range(self.y_length):
 			row = ''
 			for x in range(self.x_length):
-				row += self.matrix[y][x]
+				if self.matrix[y][x]:
+					row += self.matrix[y][x].value
+				else:
+					row += SPACE
 			print(row)
 
 class Obj(object):
@@ -33,11 +38,10 @@ class Obj(object):
 	method:
 		move : move
 	"""
-	def __init__(self, word, field):
-		self.word = word # word object
+	def __init__(self, field, start_location=[0, 0]):
 		self.field = field
-		self.location = [0, 0]
-		self.previous_location = [0, 0]
+		self.location = start_location
+		self.previous_location = start_location
 
 	def x_location(self):
 		return self.location[0]
@@ -45,11 +49,6 @@ class Obj(object):
 	def y_location(self):
 		return self.location[1]
 
-	def move(self, x, y):
-		self.field.matrix[self.previous_location[0]][self.previous_location[1]] = '                        '
-		self.location = [x, y]
-		self.field.matrix[x][y] = word.value # should change to the string of the word
-		self.previous_location = [x, y]
 
 
 
