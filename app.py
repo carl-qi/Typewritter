@@ -3,14 +3,14 @@ from word import *
 import os
 import time
 
-SLEEP_TIME = 0.2
+SLEEP_TIME = 0.8
 
 class App:
     def __init__(self):
         pass
 
     def start_game(self):
-        self.field = Field(5, 10)
+        self.field = Field(50, 5)
         words = []
         game_over = False
         
@@ -24,21 +24,21 @@ class App:
             os.system('clear')
             self.field.show_field()
             print('_' * 120)
-            if num_loops % (1 // SLEEP_TIME) == 0:
+            if num_loops % (1.6 // SLEEP_TIME) == 0:
                 word = Word(self.field)
                 words.append(word)
-            num_loops += 1
                         
             for w in words:
-                if w.speed == (num_loops * SLEEP_TIME) % 3 + 1:
-                    if (w.x_location() + w.speed) > (self.field.x_length - 1):
+                if w.speed >= (num_loops) % 3:
+                    if (w.row() + w.speed) > (self.field.row_length - 1):
                         self.end_game()
                         game_over = True
                         break
                     else:
-                        w.move(w.x_location() + w.speed, w.y_location())
+                        w.move(w.row() + 1, w.col())
             
             time.sleep(SLEEP_TIME)
+            num_loops += 1
     
 
 

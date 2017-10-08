@@ -1,6 +1,7 @@
 import os
 
 SPACE = '                        '
+#SPACE = '------------------------'
 
 class Field(object):
 	"""
@@ -12,21 +13,21 @@ class Field(object):
 	the length of each column : 24
 
 	"""
-	def __init__(self, x, y):
+	def __init__(self, row, col):
 		""" decide the x and y coordination."""
-		self.x_length = x
-		self.y_length = y
-		self.matrix = [[None for _ in range(x)] for _ in range(y)] 
+		self.row_length = row
+		self.col_length = col
+		self.matrix = [[None for _ in range(col)] for _ in range(row)] 
 	
 	def show_field(self):
-		for y in range(self.y_length):
-			row = ''
-			for x in range(self.x_length):
-				if self.matrix[y][x]:
-					row += self.matrix[y][x].value
+		for r in range(self.row_length):
+			line = ''
+			for c in range(self.col_length):
+				if self.matrix[r][c]:
+					line += self.matrix[r][c].value
 				else:
-					row += SPACE
-			print(row)
+					line = line + SPACE
+			print(line)
 
 class Obj(object):
 	""" 
@@ -43,10 +44,10 @@ class Obj(object):
 		self.location = start_location
 		self.previous_location = start_location
 
-	def x_location(self):
+	def row(self):
 		return self.location[0]
 
-	def y_location(self):
+	def col(self):
 		return self.location[1]
 
 
