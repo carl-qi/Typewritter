@@ -5,16 +5,16 @@ from field import Obj
 SPACE = '                        '
 class Word(Obj):
     def __init__(self, field, value=None):
-        self.speed = randint(1, 2)'
+        self.speed = randint(1, 2)
         if value:
             self.value = value
         else:
             self.value = data[randint(0, len(data)-1)]
-        super().__init__(self, field, [0, randint(0, field.x_length)-1])
-        self.move(self.x_location(), self.y_location())
+        super().__init__(field, [0, randint(0, field.x_length)-1])
+        self.field.matrix[self.x_location()][self.y_location()] = self
 
     def move(self, x, y):
-        if field.matrix[x][y] == None:
+        if self.field.matrix[x][y] == None:
             self.field.matrix[self.previous_location[0]][self.previous_location[1]] = None
             self.previous_location = [x, y]
             self.location = [x, y]
